@@ -9,7 +9,7 @@
     "homepage": "http://mi-roh.de/"
   },
   "main": "src/js/jquery.mirohBox.js",
-  "style": "src/css/_jquery.mirohBox.scss",
+  "style": "src/sass/_jquery.mirohBox.scss",
   "contributors": [
     {
       "name": "Micha Rohde",
