@@ -1,0 +1,150 @@
+/*!
+ * jquery-mirohBox
+ *
+ * default styles for
+ *
+ * .mirohBox()
+ *
+ * SDG
+ *
+ * @version     0.1.0
+ * @author      Micha Rohde <hi@mi-roh.de>
+ * @copyright   Copyright (c) 2016 Micha Rohde
+ *
+ */
+
+html.mirohBox-is-open {
+  //overflow:hidden;
+
+  body {
+    overflow:hidden;
+  }
+}
+
+.mirohBox {
+
+  $mirohBox-background: #fff !default;
+  $mirohBox-zIndex: 10000 !default;
+  $mirohBox-padding: 1em !default;
+  $mirohBox-margin-top: 10% !default;
+  $mirohBox-margin-top-modern: 20vmin !default;
+  $mirohBox-margin-bottom: 10% !default;
+  $mirohBox-margin-bottom-modern: 20vmin !default;
+
+  $mirohBox-overlay-background: rgba(0,0,0,0.5) !default;
+
+  $mirohBox-close-background: #454545 !default;
+  $mirohBox-close-color: #ffffff !default;
+  $mirohBox-close-width: 2em !default;
+  $mirohBox-close-height: 2em !default;
+  $mirohBox-close-radius: 1em !default;
+
+  $mirohBox-text-align: left !default;
+
+  $mirohBox-min-width: 5em !default;
+  $mirohBox-min-height: 5em !default;
+
+  $mirohBox-transition-speed: 300ms !default;
+
+
+
+
+  &.mirohBox-root {
+    position: fixed;
+    z-index: $mirohBox-zIndex;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+    overflow-x: hidden;
+  }
+
+  .mirohBox-background {
+    background: $mirohBox-overlay-background;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  .mirohBox-box {
+    position: absolute;
+    z-index: 2;
+    text-align: center;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    transition: $mirohBox-transition-speed opacity;
+  }
+
+  &.mirohBox-is-closed {
+    display: none;
+  }
+
+  //&.mirohBox-is-opening,
+  &.mirohBox-is-open {
+    .mirohBox-box {
+      opacity: 1;
+    }
+  }
+
+  .mirohBox-wrapper {
+    position: relative;
+    display: inline-block;
+    text-align: $mirohBox-text-align;
+    margin-top: $mirohBox-margin-top;
+    margin-top: $mirohBox-margin-top-modern;
+    margin-bottom: $mirohBox-margin-bottom;
+    margin-bottom: $mirohBox-margin-bottom-modern;
+  }
+
+  .mirohBox-close {
+    position: absolute;
+    top: -#{$mirohBox-close-height / 2};
+    right: -#{$mirohBox-close-width / 2};
+    width: $mirohBox-close-width;
+    height: $mirohBox-close-height;
+    background: $mirohBox-close-background;
+    text-align: center;
+    line-height: $mirohBox-close-height;
+    border-radius: $mirohBox-close-radius;
+    color: $mirohBox-close-color;
+
+    &:before {
+      content: '×'; // &times;
+      font-size: 1.6em;
+    }
+  }
+
+  &.mirohBox-OS-macOS,
+  &.mirohBox-OS-iOS {
+    .mirohBox-close {
+      right: auto;
+      left: -#{$mirohBox-close-width / 2};
+    }
+  }
+
+  .mirohBox-content {
+    background: $mirohBox-background;
+    min-height: $mirohBox-min-height;
+    min-width: $mirohBox-min-width;
+    max-width: 100%;
+    padding: $mirohBox-padding;
+    box-sizing: border-box;
+  }
+
+  .mirohBox-close-on-click {
+    cursor: pointer;
+  }
+
+  // @todo Add Loader
+
+}
