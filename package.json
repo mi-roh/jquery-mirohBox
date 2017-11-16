@@ -23,23 +23,7 @@
     "url": "https://github.com/mi-roh/tableEditor/"
   },
   "dependencies": {},
-  "devDependencies": {
-    "browserify": "^13.1.1",
-    "browserify-wrap": "^1.0.2",
-    "grunt": "^0.4.5",
-    "grunt-autoprefixer": "^3.0.4",
-    "grunt-banner": "^0.3.1",
-    "grunt-browserify": "^5.0.0",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "^0.11.0",
-    "grunt-contrib-sass": "^0.9.2",
-    "grunt-contrib-uglify": "^0.9.1",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-jscs": "^2.7.0",
-    "grunt-template": "^1.0.0",
-    "pathmodify": "^0.5.0"
-  },
+  "devDependencies": {},
   "homepage": "https://mi-roh.de/",
   "license": "MIT",
   "keyword": []
