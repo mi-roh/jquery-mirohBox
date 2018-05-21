@@ -7,7 +7,7 @@
  *
  * SDG
  *
- * @version     0.1.0
+ * @version     0.1.1
  * @author      Micha Rohde <hi@mi-roh.de>
  * @copyright   Copyright (c) 2016 Micha Rohde
  *
@@ -15,7 +15,27 @@
 
 /* globals jQuery, window */
 
-( function( $, w, n, c ) {
+;
+
+(function ( root, factory ) {
+
+    var moduleName = "jquerySmartOn";
+
+    if(typeof exports === "object" && typeof module === "object") {
+        module.exports = factory( require( "jquery" ) );
+    } else if(typeof define === "function" && define.amd) {
+        define( [ "jquery" ], factory );
+    } else if(typeof exports === "object") {
+        exports[ moduleName ] = factory( jQuery );
+    } else {
+        root[ moduleName ] = factory( jQuery );
+    }
+
+})( this, function( $ ) {
+
+    var w = window,
+        navigator = window.navigator,
+        console = window.console;
 
     /**
      * Set Constants for status comparing
@@ -323,7 +343,7 @@
                 return OS_LINUX;
             }
             return OS_UNKNOWN;
-        }( n.appVersion, n.userAgent, n.platform ) );
+        }( navigator.appVersion, navigator.userAgent, navigator.platform ) );
 
     ///////////////// HELPER
 
@@ -368,7 +388,7 @@
      * @param message
      */
     var logError = function( message ) {
-        c.log.apply( c, arguments );
+        console.log.apply( console, arguments );
     };
 
     ///////////////// THE JQUERY PLUGIN
@@ -984,4 +1004,4 @@
         }
     );
 
-}( jQuery, window, window.navigator, window.console ) );
+} );
