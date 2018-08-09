@@ -1,5 +1,5 @@
 {
-  "name": "jquery.mirohBox",
+  "name": "jquery-mirohBox",
   "description": "An configuratable jQuery-Layer that gets styled via CSS and Functions via JS.",
   "version": "0.1.0",
   "private": true,
