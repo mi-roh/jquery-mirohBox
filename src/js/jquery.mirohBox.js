@@ -7,7 +7,7 @@
  *
  * SDG
  *
- * @version     0.1.1
+ * @version     0.0.1b
  * @author      Micha Rohde <hi@mi-roh.de>
  * @copyright   Copyright (c) 2016 Micha Rohde
  *
@@ -15,27 +15,7 @@
 
 /* globals jQuery, window */
 
-;
-
-(function ( root, factory ) {
-
-    var moduleName = "jquerySmartOn";
-
-    if(typeof exports === "object" && typeof module === "object") {
-        module.exports = factory( require( "jquery" ) );
-    } else if(typeof define === "function" && define.amd) {
-        define( [ "jquery" ], factory );
-    } else if(typeof exports === "object") {
-        exports[ moduleName ] = factory( jQuery );
-    } else {
-        root[ moduleName ] = factory( jQuery );
-    }
-
-})( this, function( $ ) {
-
-    var w = window,
-        navigator = window.navigator,
-        console = window.console;
+( function( $, w, n, c ) {
 
     /**
      * Set Constants for status comparing
@@ -98,6 +78,7 @@
      *
      * @callback openContentCall
      * @param content {HTMLElement} the Content to show in the Box
+     * @param [data] {{}} Data passed to the onOpenEvent
      */
 
     /**
@@ -126,156 +107,156 @@
      * @return {string|boolean} the URL to show or false if no valid URL
      */
 
-    ///////////////// DEFAULT OPTIONS
+        ///////////////// DEFAULT OPTIONS
 
     var defaultOptions = {
-        /**
-         * The Content to Display
-         * string: Display the String as Content
-         * HTMLElement: Display the element
-         * function: Call Function and display the returned Value (string|HTMLElement)
-         * returns false of no Content is set
-         *
-         * @type {string|HTMLElement|function|boolean}
-         */
-        content: false,
+            /**
+             * The Content to Display
+             * string: Display the String as Content
+             * HTMLElement: Display the element
+             * function: Call Function and display the returned Value (string|HTMLElement)
+             * returns false of no Content is set
+             *
+             * @type {string|HTMLElement|function|boolean}
+             */
+            content: false,
 
-        /**
-         * Content Type that shall be used
-         * auto: Detect by Configuration
-         * other Types defined by addContentType()
-         *
-         * @type {string}
-         */
-        contentType: CONTENT_TYPE_AUTO,
+            /**
+             * Content Type that shall be used
+             * auto: Detect by Configuration
+             * other Types defined by addContentType()
+             *
+             * @type {string}
+             */
+            contentType: CONTENT_TYPE_AUTO,
 
-        /**
-         * default Event for eventOpen and eventClose
-         *
-         * @type {string|boolean}
-         */
-        event: 'click.mirohBox',
+            /**
+             * default Event for eventOpen and eventClose
+             *
+             * @type {string|boolean}
+             */
+            event: 'click.mirohBox',
 
-        /**
-         * events that open the Layer
-         * false: use .event
-         *
-         * @type {string|boolean}
-         */
-        eventOpen: false,
+            /**
+             * events that open the Layer
+             * false: use .event
+             *
+             * @type {string|boolean}
+             */
+            eventOpen: false,
 
-        /**
-         * events that close the Layer
-         * false: use .event
-         *
-         * @type {string|boolean}
-         */
-        eventClose: false,
+            /**
+             * events that close the Layer
+             * false: use .event
+             *
+             * @type {string|boolean}
+             */
+            eventClose: false,
 
-        /**
-         * Close in BackgroundClick
-         *
-         * Closes the Layer if the eventClose is triggered on the $background
-         *
-         * @type {boolean}
-         */
-        closeOnBackground: true,
+            /**
+             * Close in BackgroundClick
+             *
+             * Closes the Layer if the eventClose is triggered on the $background
+             *
+             * @type {boolean}
+             */
+            closeOnBackground: true,
 
-        /**
-         * Close in CloseClick
-         *
-         * Closes the Layer if the eventClose is triggered on the $close
-         *
-         * @type {boolean}
-         */
-        closeOnClose: true,
+            /**
+             * Close in CloseClick
+             *
+             * Closes the Layer if the eventClose is triggered on the $close
+             *
+             * @type {boolean}
+             */
+            closeOnClose: true,
 
-        /**
-         * URL to use
-         *
-         * string: use as URL
-         * function: call and use return as URL
-         * false: no URL set, try to get the href-attribute
-         *
-         * @type {string|urlOption|boolean}
-         */
-        url: false,
+            /**
+             * URL to use
+             *
+             * string: use as URL
+             * function: call and use return as URL
+             * false: no URL set, try to get the href-attribute
+             *
+             * @type {string|urlOption|boolean}
+             */
+            url: false,
 
-        /**
-         * Change the default Transition Speed for this configuration
-         *
-         * @type {boolean}
-         * false: use the DefaultTransition Speed
-         * 0: don't fade @todo Disable CSS-Transition
-         * >0: Use Transition for CSS
-         */
-        customTransitionSpeed: false,
+            /**
+             * Change the default Transition Speed for this configuration
+             *
+             * @type {boolean}
+             * false: use the DefaultTransition Speed
+             * 0: don't fade @todo Disable CSS-Transition
+             * >0: Use Transition for CSS
+             */
+            customTransitionSpeed: false,
 
-        /**
-         * Add Class
-         *
-         * @type {string}
-         */
-        class: '',
+            /**
+             * Add Class
+             *
+             * @type {string}
+             */
+            class: '',
 
-        /**
-         * the zIndex of the Layer as a css attribute in a style-Attribute
-         *
-         * default: zIndex of the CSS (10000)
-         *
-         * @type {null|number}
-         */
-        zIndex: null,
+            /**
+             * the zIndex of the Layer as a css attribute in a style-Attribute
+             *
+             * default: zIndex of the CSS (10000)
+             *
+             * @type {null|number}
+             */
+            zIndex: null,
 
-        /**
-         * Event to load before the Box gets opened
-         *
-         * @type {customEvent}
-         */
-        onOpen: function() {
+            /**
+             * Event to load before the Box gets opened
+             *
+             * @type {customEvent}
+             */
+            onOpen: function() {
 
-            // console.info( 'custom Evt open', arguments );
-        },
+                // console.info( 'custom Evt open', arguments );
+            },
 
-        /**
-         * Event to load after the Box got opened
-         *
-         * @type {customEvent}
-         */
-        onOpened: function() {
+            /**
+             * Event to load after the Box got opened
+             *
+             * @type {customEvent}
+             */
+            onOpened: function() {
 
-            // console.info( 'custom Evt opened', arguments );
-        },
+                // console.info( 'custom Evt opened', arguments );
+            },
 
-        /**
-         * Event to load before the Box gets closed
-         *
-         * @type {customEvent}
-         */
-        onClose: function() {
+            /**
+             * Event to load before the Box gets closed
+             *
+             * @type {customEvent}
+             */
+            onClose: function() {
 
-            // console.info( 'custom Evt close', arguments );
-        },
+                // console.info( 'custom Evt close', arguments );
+            },
 
-        /**
-         * Event to load after the Box got closed
-         *
-         * @type {customEvent}
-         */
-        onClosed: function() {
+            /**
+             * Event to load after the Box got closed
+             *
+             * @type {customEvent}
+             */
+            onClosed: function() {
 
-            // console.info( 'custom Evt closed', arguments );
-        },
+                // console.info( 'custom Evt closed', arguments );
+            },
 
-        /**
-         * Ajax-Configuration Object as base for the Ajax-Call
-         *
-         * @type {*}
-         */
-        ajaxConfig: {
+            /**
+             * Ajax-Configuration Object as base for the Ajax-Call
+             *
+             * @type {*}
+             */
+            ajaxConfig: {
 
-        }
-    };
+            }
+        };
 
     ///////////////// VARIABLES
 
@@ -343,7 +324,7 @@
                 return OS_LINUX;
             }
             return OS_UNKNOWN;
-        }( navigator.appVersion, navigator.userAgent, navigator.platform ) );
+        }( n.appVersion, n.userAgent, n.platform ) );
 
     ///////////////// HELPER
 
@@ -388,7 +369,7 @@
      * @param message
      */
     var logError = function( message ) {
-        console.log.apply( console, arguments );
+        c.log.apply( c, arguments );
     };
 
     ///////////////// THE JQUERY PLUGIN
@@ -428,7 +409,7 @@
 
     /**
      * Add jQuery-Plugin for direct access
-     * @type {jQuery.mirohBox}
+     * @type {jquery.mirohBox}
      */
     var jqueryMirohBox = $.mirohBox = function( options ) {
         var box = new mirohBox( getOptions( options ) );
@@ -705,9 +686,9 @@
             /**
              * @type openContentCall
              */
-            function( content ) {     // Function to Call with Content
+            function( content, data ) {     // Function to Call with Content
                 w.setTimeout( function() {
-                    t.opened( content );
+                    t.opened( content, data || {} );
                 }, 1 );
             },
             options,                // Options
@@ -733,7 +714,7 @@
                 t.openedFailed( message );
             },
             t
-         );
+        );
 
     };
 
@@ -741,9 +722,12 @@
      * Function gets Called when the content is loaded and the Layer shall be displayed.
      *
      * @param {HTMLElement} $content Content to Display
+     * @param {{}} data Optional Data to pass to the Event
      */
-    proto.opened = function( $content ) {
+    proto.opened = function( $content, data ) {
         var t = this;
+
+        data = data || {};
 
         // Set Status
         t.status = STATUS_OPEN;
@@ -759,7 +743,8 @@
 
         // Trigger the Custom Opened event wenn every thing is completed
         t.fireEvent( 'onOpened', t.openEvent, {
-            $content: t.$content
+            $content: t.$content,
+            data: data
         } );
     };
 
@@ -920,7 +905,7 @@
             // Open
             openCall( $( content ) );
         }
-     );
+    );
 
     /**
      * Add Content Type 'ajax' for Loading Content via Ajax
@@ -967,7 +952,7 @@
             // Call the Ajax
             $.ajax( config );
         }
-     );
+    );
 
     /**
      * Add Content Type 'iframe' to Load a Page into an iframe
@@ -984,8 +969,8 @@
 
                 // Build a Load-Wrapper to load the Content out of the Box
                 $loader = $(
-                        '<div style="overflow:hidden; width: 1px; height: 1px; opacity: 0.01;">'
-                    ).appendTo( 'body' ),
+                    '<div style="overflow:hidden; width: 1px; height: 1px; opacity: 0.01;">'
+                ).appendTo( 'body' ),
 
                 // Build the iframe - when loaded, remove from the Load-Wrapper and open in Box
                 $iFrame = $( '<iframe />' )
@@ -1004,4 +989,4 @@
         }
     );
 
-} );
+}( jQuery, window, window.navigator, window.console ) );
